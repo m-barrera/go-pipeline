@@ -1,0 +1,59 @@
+
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  gitflow:
+    name: Check Gitflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: semestry/git-flow-action@v1
+        env:
+          GITHUB_TOKEN: ${{ screts.GITHUB_TOKEN }}
+      
+  lint:
+    name: Lint code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Super-Linter
+        uses: github/super-linter@v3
+        
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ screts.GITHUB_TOKEN }}
+            
+  sonarcloud:
+      name: Run SonarCloud
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
+  build:
+    name: Build binary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      
+      - name: Build
+        run: go build main.go
+
