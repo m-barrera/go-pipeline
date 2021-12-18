@@ -60,6 +60,8 @@ jobs:
           go-version: 1.16
       - name: Install dependencies
         run: go mod download
+      - name: Tests
+        run: cd ./src && go test
       - name: Build
         run: go build ./src/main.go
 
