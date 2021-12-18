@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: semestry/git-flow-action@v1
         env:
-          GITHUB_TOKEN: ${{ screts.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
   lint:
     name: Lint code base
