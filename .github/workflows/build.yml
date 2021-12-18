@@ -61,5 +61,5 @@ jobs:
       - name: Install dependencies
         run: go mod download
       - name: Build
-        run: go build main.go
+        run: go build ./src/main.go
 
