@@ -5,6 +5,6 @@ WORKDIR /app
 COPY . .
 RUN go mod download && go build -o main ./src
 
-EXPOSE 80
+EXPOSE 80:3000
 
 CMD ["./main"]
