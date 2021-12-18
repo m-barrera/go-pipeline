@@ -6,12 +6,13 @@ on:
   pull_request:
     branches: [ main ]
 
+
   workflow_dispatch:
 
 jobs:
   gitflow:
     name: Check Gitflow
-    if: github.event_name = 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: semestry/git-flow-action@v1
@@ -19,6 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
   lint:
+    needs: gitflow
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
@@ -32,6 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
   sonarcloud:
+      needs: gitflow
       name: Run SonarCloud
       runs-on: ubuntu-latest
       steps:
@@ -45,6 +48,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
   build:
+    needs: [gitflow, lint, sonarcloud]
     name: Build binary
     runs-on: ubuntu-latest
     steps:
