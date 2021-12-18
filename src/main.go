@@ -10,7 +10,7 @@ import (
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", HelloWorld).Methods("GET")
-	err := http.ListenAndServe(":80", router)
+	err := http.ListenAndServe(":3000", router)
 	if err != nil {
 		panic("Failed serve")
 	}
