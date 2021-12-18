@@ -5,4 +5,4 @@ WORKDIR /app
 COPY . .
 RUN go mod download && go build -o main ./src
 CMD ["./src/main"]
-EXPOSE 80:3000
+EXPOSE 8080:3000
