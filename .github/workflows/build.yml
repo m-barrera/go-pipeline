@@ -28,7 +28,7 @@ jobs:
         
         env:
           DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ screts.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
   sonarcloud:
       name: Run SonarCloud
