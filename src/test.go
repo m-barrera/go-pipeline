@@ -9,7 +9,6 @@ func TestHelloWorld(t *testing.T) {
 
 	expected.Text = "HelloWorld"
 	result := HelloWordTxt()
-
 	if expected.Text != result.Text {
 		t.Errorf("Phrase was incorrect. Got: %s, want: %s.", result.Text, expected.Text)
 	}
