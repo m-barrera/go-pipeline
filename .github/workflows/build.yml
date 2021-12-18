@@ -20,6 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
   lint:
+    needs: gitflow
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
   sonarcloud:
+      needs: gitflow
       name: Run SonarCloud
       runs-on: ubuntu-latest
       steps:
@@ -46,6 +48,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
   build:
+    needs: [gitflow, lint, sonarcloud]
     name: Build binary
     runs-on: ubuntu-latest
     steps:
