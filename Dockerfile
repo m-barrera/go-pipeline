@@ -3,8 +3,7 @@ ENV CGO_ENABLED=0
 
 WORKDIR /app
 COPY . .
-RUN go mod download
-RUN go build -o main .
+RUN go mod download && go build -o main .
 
 EXPOSE 80
 

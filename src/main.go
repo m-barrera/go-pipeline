@@ -10,7 +10,10 @@ import (
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", HelloWorld).Methods("GET")
-	http.ListenAndServe(":80", router)
+	err := http.ListenAndServe(":80", router)
+	if err != nil {
+		panic("Failed serve")
+	}
 }
 
 type Response struct {
@@ -22,5 +25,8 @@ func HelloWordTxt() Response {
 }
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(HelloWordTxt())
+	err := json.NewEncoder(w).Encode(HelloWordTxt())
+	if err != nil {
+		panic("failed encode")
+	}
 }
