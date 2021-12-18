@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+//nolint
 func TestHelloWorld(t *testing.T) {
 	var expected Response
 	var result Response
