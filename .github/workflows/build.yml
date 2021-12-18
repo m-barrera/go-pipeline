@@ -11,6 +11,7 @@ on:
 jobs:
   gitflow:
     name: Check Gitflow
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: semestry/git-flow-action@v1
