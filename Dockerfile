@@ -1,8 +1,12 @@
-FROM golang:alpine
-ENV CGO_ENABLED=0
-
+FROM golang:alpine 
 WORKDIR /app
-COPY . .
-RUN go mod download && go build -o main ./src
-CMD ["./src/main"]
-EXPOSE 8080:3000
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+COPY ./src/*.go ./
+RUN  go build -o /main
+
+EXPOSE 8080
+
+CMD [ "/main" ]
+
